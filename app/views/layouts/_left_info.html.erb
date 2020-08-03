@@ -1,0 +1,27 @@
+  <div class="col-xs-3">
+    <h2>User info</h2>
+    <% if @user.profile_image.nil? %>
+        <%= image_tag 'no-image.jpg', class: "attachment user profile_image fallback" %>
+    <% else %>
+      <%= attachment_image_tag @user,profile_image, :image %>
+    <%end%>
+    <table class="table">
+      <tbody><tr></tr> 
+        <tr>
+          <th>name</th>
+          <th><%= @user.name %></th>
+        </tr>
+        <tr>
+          <th>introduction</th>
+          <th><%= @user.introduction %></th>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="row">
+      <a class="col-xs-12 btn btn-default glyphicon glyphicon-wrench" href="<%= edit_user_path(@user) %>"></a>
+    </div>
+
+      <%= render 'books/new' %>
+
+</div>

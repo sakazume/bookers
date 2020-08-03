@@ -1,0 +1,55 @@
+<div class="row">
+  
+  <div class="col-xs-3">
+    <h2>User info</h2>
+    <% if @userprofile_image.nil?%>
+      <%= image_tag 'no-image.jpg', class: "attachment user profile_image fallback" %>
+    <% else %>
+      <%= attachment_image_tag @user,profile_image, :image %>
+    <%end%>
+    <table class="table">
+      <tbody><tr></tr> 
+        <tr>
+          <th>name</th>
+          <th><%= @user.name %></th>
+        </tr>
+        <tr>
+          <th>introduction</th>
+          <th><%= @user.introduction %></th>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="row">
+      <a class="col-xs-12 btn btn-default glyphicon glyphicon-wrench" href="<%= edit_user_path(@user) %>"></a>
+    </div>
+
+      <%= render 'books/new' %>
+
+
+
+<div class="col-xs-9">
+		<h2>Book detail</h2>
+		<table class="table">
+		  <tbody><tr>
+        <td><a href="<%= user_path(@book.user.id) %>">
+                <img class="attachment user profile_image fallback" src="/assets/no-image-icon-d3f9e11cb2bb284b42e0810f94b03c50126f51f482ea43054b87c2b7ebaa01d5.jpg" alt="No image icon"><br>
+                <%= @book.user.name %>
+            </a>
+        </td>
+        <td><a href="<%= book_path(@book.id) %>"><%= @book.title %></a></td>
+        <td><%= @book.opinion %></td>
+
+        <td>
+            <%= link_to 'Edit', edit_book_path(@book.id), class:"btn-sm btn-success" %>
+        </td>
+        <td>
+            <%= link_to 'Destroy',book_path(@book.id), method: :delete, data: {confirm: "本当に消しますか？"}, class:"btn-sm btn-danger" %>
+
+        </td>
+      </tr>
+    </tbody></table>
+
+</div>
+
+</div>

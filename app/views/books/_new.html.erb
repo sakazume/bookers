@@ -1,0 +1,19 @@
+<h2>New book</h2>
+
+<%= form_for(@book) do |f| %>
+    <%= render 'layouts/error_message.html', model: f.object %>
+
+    <div class="field row">
+        <label for="book_title">Title</label>
+        <input class="col-xs-12 book_title" type="text" name="book[title]" id="book_title">
+    </div>
+
+    <div class="field row">
+        <label for="book_opinion">Opinion</label>
+        <textarea class="col-xs-12 book_body" name="book[opinion]" id="book_body"></textarea>
+    </div>
+
+    <div class="actions row">
+        <%= f.submit "commit" ,class: "btn btn-primary col-xs-12" %>
+    </div>
+<% end %>
