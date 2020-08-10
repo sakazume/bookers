@@ -1,5 +1,7 @@
 class BooksController < ApplicationController
     before_action :authenticate_user!
+    before_action :user_check, only: %i[edit update destroy]
+
 
     def index
         @books = Book.all
@@ -16,9 +18,11 @@ class BooksController < ApplicationController
         @user = current_user
 
         if book.save
+            flash[:notice] = 'successfully.'
             redirect_to book_path(book)
             return
         else
+            flash[:error] = 'error.'
             @book = book   
             @books = Book.all
             render 'index'
@@ -28,7 +32,11 @@ class BooksController < ApplicationController
 
     def update
         book = Book.find(params[:id])
-        book.update(book_params)
+        if book.update(book_params)
+            flash[:notice] = 'successfully.'
+        else
+            flash[:error] = 'error.'
+        end
         redirect_to book_path(book)
     end
 
@@ -44,12 +52,22 @@ class BooksController < ApplicationController
     def destroy
         book = Book.find(params[:id])
         book.destroy
+        flash[:notice] = 'successfully.'
         redirect_to books_path
     end
 
     private
     def book_params
-        params.require(:book).permit(:title, :opinion)
+        params.require(:book).permit(:title, :body)
+    end
+
+    def user_check
+        @book = Book.find(params[:id])
+        # 自分以外の場合はリダイレクト
+        if current_user.id != @book.user_id
+            redirect_to books_path
+            return
+        end
     end
 
 end

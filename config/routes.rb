@@ -5,6 +5,12 @@ Rails.application.routes.draw do
   end
 
   root to: 'home#top'
+  
+  resources :home do
+    collection do
+      get 'about'
+    end
+  end
 
   resources :users, only: [:index,:show,:edit,:update]
   resources :books, only: [:index,:show,:create,:edit,:update,:destroy]

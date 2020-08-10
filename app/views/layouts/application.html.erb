@@ -17,12 +17,13 @@
         </nav>
         <nav>
           <ul class="nav navbar-nav navbar-right">
-              <li><a class="glyphicon glyphicon-home home" href="<%= root_path %>"> Home</a></li>
                 <% if user_signed_in? %>
+                  <li><a class="glyphicon glyphicon-home home" href="<%= user_path(current_user) %>"> Home</a></li>
                   <li><a class="glyphicon glyphicon-user users" href="<%= users_path %>"> Users</a></li>
                   <li><a class="glyphicon glyphicon-book books" href="<%= books_path %>"> Books</a></li>
                   <li><%= link_to "logout", destroy_user_session_path, method: :delete %></li>
                 <% else %>
+                  <li><a class="glyphicon glyphicon-home home" href="<%= root_path %>"> Home</a></li>
                   <li><a class="glyphicon glyphicon-link about" href="/home/about"> About</a></li>
                   <li><a class="glyphicon glyphicon-edit sign_up" href="<%= new_user_registration_path %>"> sign up</a></li>
                   <li><a class="glyphicon glyphicon-log-in sign_in" href="<%= new_user_session_path %>"> login</a></li>
@@ -35,10 +36,10 @@
   </header>
 
   <div class="container">
-    <p id="notice">
-      <%= flash[:notice] %>
-    </p>
-    
+    <% flash.each do |message_type, message| %>
+      <%= message %>
+    <% end %>
+
     <%= yield %>
   </div>
   </body>

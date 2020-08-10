@@ -8,6 +8,7 @@ class User < ApplicationRecord
   attachment :profile_image # ここを追加（_idは含めません）
   
   validates :name, length: { minimum: 2, maximum: 20 }, presence: true
+  validates :introduction, length: { maximum: 50 }
 
-
+  
 end
